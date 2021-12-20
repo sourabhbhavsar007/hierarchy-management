@@ -52,3 +52,27 @@ GET request on endpoint http://localhost:8080/getHierarchy/Nick
 
 
 
+
+
+
+**Screenshot 1 :** Update Hierarchy
+
+
+
+![updateHierarchy](https://user-images.githubusercontent.com/30754286/146703425-09e85281-e97a-43f0-8653-67d64741ae4e.png)
+
+
+
+
+
+
+
+**Scneenshot 2 :** Getting the hierarchy by passing name as an input for an individual
+
+
+
+![getHierarchy](https://user-images.githubusercontent.com/30754286/146703490-35924bb1-9611-4384-9e49-6ae617a20384.png)
+
+
+
+
