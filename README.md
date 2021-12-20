@@ -10,7 +10,7 @@ It takes into consideration the changes made in hierarchy and incorporates the c
 
 
 
-**Security : **
+**Security :**
 
 To invoke any endpoint, please pass Basic Authentication credentials:
 
@@ -22,7 +22,7 @@ We have used Basic Authentication using Spring Security.
 
 
 
-**Endpoints : **
+**Endpoints :**
 
 1. POST request on endpoint http://localhost:8080/updateHierarchy with below example body. (Please also refer to images)
 
@@ -40,7 +40,7 @@ We have used Basic Authentication using Spring Security.
 GET request on endpoint http://localhost:8080/getHierarchy/Nick
 
 
-**Exceuting the project : **
+**Exceuting the project :**
 
 1. To execute, please download the zip of the project or clone the repository.
 
