@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.personio.hierarchymanagement.exception.PersonioCustomException;
 import com.personio.hierarchymanagement.service.OrganizationService;
 import com.personio.hierarchymanagement.utils.Member;
@@ -46,8 +47,17 @@ public class OrganizationController {
         if (json == null) {
             throw new PersonioCustomException("Request cannot be null, please try again!");
         }
+        
+        try{
+        	JsonParser parser = new JsonParser();
+        	parser.parse(json);
+        	 
+        } catch(JsonSyntaxException jse){
+        	throw new PersonioCustomException("Given json input is invalid...");
+        }
 
         JsonObject object = new JsonParser().parse(json).getAsJsonObject();
+        
         Set<Map.Entry<String, JsonElement>> entries = object.entrySet();
         Collection<Pair<Member, Member>> pairs = new ArrayList<>();
         

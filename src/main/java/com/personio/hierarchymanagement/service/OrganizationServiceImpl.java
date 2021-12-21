@@ -18,56 +18,63 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 	private final EmployeeRepository employeeRepository;
 
-    public OrganizationServiceImpl(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
-    
+	public OrganizationServiceImpl(EmployeeRepository employeeRepository) {
+		this.employeeRepository = employeeRepository;
+	}
+
 	@Override
 	public Member getRoot(Collection<Pair<Member, Member>> pairs) throws PersonioCustomException {
-		
+
 		OrganizationHelper organizationHelper = new OrganizationHelper();
-        for (Pair<Member, Member> pair : pairs) {
-        	organizationHelper.getMembers(pair.getLeft(), pair.getRight());
-        }
-        Member root = organizationHelper.getRoot();
-        employeeRepository.deleteAll();
-        saveMembers(root, null);
-        return root;
+		for (Pair<Member, Member> pair : pairs) {
+			organizationHelper.getMembers(pair.getLeft(), pair.getRight());
+		}
+		Member root = organizationHelper.getRoot();
+		employeeRepository.deleteAll();
+		saveMembers(root, null);
+		return root;
 	}
 
 	@Override
 	public Member getHierarchyByName(String name) throws PersonioCustomException {
-		
-		Employee searchedEmployee = employeeRepository.findByName(name);
-        if (searchedEmployee.getName() == null) {
-            return null;
-        }
 
-        Employee currentSupervisorEntity = searchedEmployee.getSupervisor();
-        Member currentSupervisor = new Member(currentSupervisorEntity.getName());
-        Member result = currentSupervisor;
-        
-        while (currentSupervisorEntity.getSupervisor() != null) {
-            Employee parentSupervisorEntity = currentSupervisorEntity.getSupervisor();
-            Member parentSupervisor = new Member(parentSupervisorEntity.getName());
-            currentSupervisor.setSupervisor(parentSupervisor);
-            currentSupervisor = parentSupervisor;
-            currentSupervisorEntity = parentSupervisorEntity;
-        }
-        return result;
-		
+		try {
+			Employee searchedEmployee = employeeRepository.findByName(name);
+
+			if (searchedEmployee.getName() == null) {
+				return null;
+			}
+
+			Employee currentSupervisorEntity = searchedEmployee.getSupervisor();
+			Member currentSupervisor = new Member(currentSupervisorEntity.getName());
+			Member result = currentSupervisor;
+
+			while (currentSupervisorEntity.getSupervisor() != null) {
+				Employee parentSupervisorEntity = currentSupervisorEntity.getSupervisor();
+				Member parentSupervisor = new Member(parentSupervisorEntity.getName());
+				currentSupervisor.setSupervisor(parentSupervisor);
+				currentSupervisor = parentSupervisor;
+				currentSupervisorEntity = parentSupervisorEntity;
+			}
+
+			return result;
+
+		} catch (RuntimeException e) {
+			throw new PersonioCustomException("Invalid hierarchy, violates the integrity constraint...");
+		}
+
 	}
-	
+
 	private void saveMembers(Member member, Employee supervisor) {
-		
+
 		Employee employee = new Employee();
 		employee.setName(member.getName());
 		employee.setSupervisor(supervisor);
-        employeeRepository.save(employee);
-        
-        for (Member childEmployee : member.getEmployees()) {
-            saveMembers(childEmployee, employee);
-        }
-    }
+		employeeRepository.save(employee);
+
+		for (Member childEmployee : member.getEmployees()) {
+			saveMembers(childEmployee, employee);
+		}
+	}
 
 }

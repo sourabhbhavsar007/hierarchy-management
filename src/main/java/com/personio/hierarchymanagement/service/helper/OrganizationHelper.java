@@ -8,14 +8,13 @@ import java.util.stream.Collectors;
 
 import com.personio.hierarchymanagement.exception.PersonioCustomException;
 import com.personio.hierarchymanagement.utils.Member;
-import com.sun.tools.sjavac.Log;
 
 public class OrganizationHelper {
     private Collection<Member> allMembers = new ArrayList<>();
 
     public void getMembers(Member employee, Member supervisor) throws PersonioCustomException {
         if (employee == null || supervisor == null) {
-        	Log.error("Employee and Supervisor cannot be null...");
+        	
             throw new PersonioCustomException("Employee and Supervisor cannot be null...");
         }
         
@@ -99,7 +98,7 @@ public class OrganizationHelper {
             if (currentSuperVisorOfSupervisor.equals(existedEmployee)) {
                 memberHierarchy.add(existedSupervisor);
                 String loop = memberHierarchy.stream().map(Member::getName).collect(Collectors.joining(" -> "));
-                Log.error("There is a loop of supervisors...");
+                
                 throw new PersonioCustomException("There is loop of supervisors : " + loop);
             }
             currentSuperVisorOfSupervisor = currentSuperVisorOfSupervisor.getSupervisor();
