@@ -1,4 +1,4 @@
---------- Ever changing Hierarchy System ------
+**Ever changing Hierarchy System**
 
 This Project is an imlementation of Spring Boot containarized using Docker to solve ever changing Hierarchy of the organization. 
 
@@ -7,7 +7,11 @@ It takes into consideration the changes made in hierarchy and incorporates the c
 1. In hierarchy always exist only one root
 2. There are No loops or cyclic hierarchies
 
---------- Security --------
+
+
+
+**Security :**
+
 To invoke any endpoint, please pass Basic Authentication credentials:
 
 username: admin
@@ -15,9 +19,12 @@ password: admin
 
 We have used Basic Authentication using Spring Security.
 
---------- Endpoints --------
 
-1. POST request on endpoint http://localhost:8080/updateHierarchy example body
+
+
+**Endpoints :**
+
+1. POST request on endpoint http://localhost:8080/updateHierarchy with below example body. (Please also refer to images)
 
 {
     "Pete": "Nick",
@@ -33,7 +40,7 @@ We have used Basic Authentication using Spring Security.
 GET request on endpoint http://localhost:8080/getHierarchy/Nick
 
 
---------- Exceuting the project ----------
+**Exceuting the project :**
 
 1. To execute, please download the zip of the project or clone the repository.
 
@@ -42,6 +49,30 @@ GET request on endpoint http://localhost:8080/getHierarchy/Nick
 3. Run mvn clean install to build and resolve dependencies needed for the application.
 
 4. After build is successful, you can use above endpoints with respective authorization credentials and request payload on Postman.
+
+
+
+
+
+
+**Screenshot 1 :** Update Hierarchy
+
+
+
+![updateHierarchy](https://user-images.githubusercontent.com/30754286/146703425-09e85281-e97a-43f0-8653-67d64741ae4e.png)
+
+
+
+
+
+
+
+**Scneenshot 2 :** Getting the hierarchy by passing name as an input for an individual
+
+
+
+![getHierarchy](https://user-images.githubusercontent.com/30754286/146703490-35924bb1-9611-4384-9e49-6ae617a20384.png)
+
 
 
 
