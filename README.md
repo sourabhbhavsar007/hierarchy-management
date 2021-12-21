@@ -80,7 +80,7 @@ GET request on endpoint http://localhost:8080/getHierarchy/Nick
 ![invalid_json](https://user-images.githubusercontent.com/30754286/146938463-415adb74-8d4a-40ac-b404-d5145c323bd3.png)
 
 
-Screenshot 4 : Handling test case with invalid hierarchy
+**Screenshot 4 :** Handling test case with invalid hierarchy
 
 ![invalid_hierarchy](https://user-images.githubusercontent.com/30754286/146938557-a8fa6554-4c8a-4fe0-9250-361e6dfd224e.png)
 
